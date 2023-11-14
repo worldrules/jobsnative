@@ -1,12 +1,27 @@
+import { useState } from 'react'
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native'
+import { useRouter } from 'expo-router'
 
 import styles from './popularjobs.style'
+import { COLORS, SIZES } from '../../../constants'
+import PopularJobCard from '../../common/cards/popular/PopularJobCard'
 
 const Popularjobs = () => {
+  const router = useRouter();
+  const isLoading = false;
+
   return (
-    <View>
-      <Text>Popularjobs</Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Popular Jobs</Text>
+        <TouchableOpacity>
+          <Text style={styles.headerBtn}>Show all</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.cardsContainer}>
+      </View>
     </View>
   )
 }
