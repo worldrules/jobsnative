@@ -37,7 +37,7 @@ const Welcome = () => {
         </View>
         <TouchableOpacity style={styles.searchBtn} onPress={() => { null }}>
           <Image
-            src={icons.search}
+            source={icons.search}
             resizeMode="contain"
             style={styles.searchBtn}
           />
