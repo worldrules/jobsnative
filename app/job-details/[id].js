@@ -3,10 +3,11 @@ import {
     SafeAreaView,
     ScrollView,
     ActivityIndicator,
-    RefreshControl
+    RefreshControl,
+    View
 
 } from 'react-native'
-import { Stack, useGlobalSearchParams, useRouter, useSearchParams } from 'expo-router';
+import { Stack, useGlobalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 
 import { Company, JobAbout, JobFooter, JobTabs, ScreenHeaderBtn, Specifics } from '../../components';
@@ -21,6 +22,10 @@ const JobDetails = () => {
         job_id: params.id
     })
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = (() => { })
+
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
@@ -34,10 +39,39 @@ const JobDetails = () => {
                             dimension="60%"
                             handlePress={() => router.back()}
                         />
-                    )
+                    ),
+                    headerRight: () => (
+                        <ScreenHeaderBtn iconUrl={icons.share}
+                            dimension="60%"
+                        />
+                    ),
+                    headerTitle: ''
                 }}
-            >
-            </Stack.Screen>
+            />
+
+            <>
+                <ScrollView showsVerticalScrollIndicator={false} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+                    {isLoading ? (
+                        <ActivityIndicator size='large' color={COLORS.primary} />
+                    ) : error ? (
+                        <Text>{'Something went wrong'}</Text>
+                    ) : data.length === 0 ? (
+                        <Text>No data</Text>
+                    ) : (
+                        <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
+                            <Company
+                                companyLogo={data[o].employer_logo}
+                                jobTitle={data[o].job_title}
+                                companyName={data[o].employer_name}
+                                location={data[o].job_country}
+                            />
+
+                            <JobTabs />
+                        </View>
+                    )}
+                </ScrollView>
+            </>
+
         </SafeAreaView>
     )
 }
