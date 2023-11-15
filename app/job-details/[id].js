@@ -60,10 +60,10 @@ const JobDetails = () => {
                     ) : (
                         <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
                             <Company
-                                companyLogo={data[o].employer_logo}
-                                jobTitle={data[o].job_title}
-                                companyName={data[o].employer_name}
-                                location={data[o].job_country}
+                                companyLogo={data[0].employer_logo}
+                                jobTitle={data[0].job_title}
+                                companyName={data[0].employer_name}
+                                location={data[0].job_country}
                             />
 
                             <JobTabs />
